@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1590800248321.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "62721E6C",
+    "lastKnownWriteTime" : 1590800292,
+    "last_content_update" : 1590800310289,
+    "path" : "~/Documents/Research/EDI/UMBS_Weather_Data/UMBS_Weather_Workflow.Rmd",
+    "project_path" : "UMBS_Weather_Workflow.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "17,171",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

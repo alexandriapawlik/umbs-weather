@@ -1,0 +1,49 @@
+---
+title: "UMBS Weather Data"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+getwd()
+```
+
+```{r}
+library(tidyverse)
+library(lubridate)
+options(stringsAsFactors = FALSE)
+```
+```{r}
+#read.csv is used to read csv tables into data frames
+daily_weather_1978_1989 <- read.csv("/Volumes/GoogleDrive/My Drive/EDI_Summer_DataProjects/EDI_Prep_Work/Data_Cleaning_EDIWorkshop/2020_Pawlik/UMBS_Weather_Data/Weather 1978 to1989.csv")
+
+daily_weather_1990_2016 <- read.csv("/Volumes/GoogleDrive/My Drive/UMBS data sets in progress/UMBS_Weather_Data/Daily Weather Observations_1990-2016 - Raw Data (1990-2016).csv", stringsAsFactors = FALSE)
+
+# daily weather from 2017 to present is tabbed by month, build single data frame from tabs
+
+glimpse(daily_weather_1978_1989)
+glimpse(daily_weather_1990_2016)
+```
+
+
+```{r}
+daily_weather_mdyDate <- daily_weather %>% 
+  mdy(daily_weather$UMB) #%>% 
+  #is.na(daily_weather$UMB)
+
+glimpse(daily_weather_mdyDate)
+```
+
+```{r}
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
