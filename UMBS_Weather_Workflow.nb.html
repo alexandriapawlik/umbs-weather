@@ -1754,36 +1754,75 @@ summary {
 <p>Required packages</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGx1YnJpZGF0ZSlcbmxpYnJhcnkoeGxzeClcbm9wdGlvbnMoc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGx1YnJpZGF0ZSlcbmxpYnJhcnkoZHBseXIpXG5saWJyYXJ5KHhsc3gpXG5saWJyYXJ5KGphbml0b3IpXG5vcHRpb25zKHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSlcbmBgYCJ9 -->
 <pre class="r"><code>library(tidyverse)
 library(lubridate)
+library(dplyr)
 library(xlsx)
+library(janitor)
 options(stringsAsFactors = FALSE)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Read CSV into data frames</p>
+<p>Read CSV into data frames (historic data only)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl83OF84OSA8LSByZWFkLmNzdihcInJhdy9EYWlseV9XZWF0aGVyX1Jhd18xOTc4LTE5ODkuY3N2XCIpXG53ZWF0aGVyXzkwXzE2IDwtIHJlYWQuY3N2KFwicmF3L0RhaWx5X1dlYXRoZXJfUmF3XzE5OTAtMjAxNi5jc3ZcIilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VhdGhlcl83OF84OSA8LSByZWFkLmNzdihcInJhdy9EYWlseV9XZWF0aGVyX1Jhd18xOTc4LTE5ODkuY3N2XCIpXG53ZWF0aGVyXzkwXzE2IDwtIHJlYWQuY3N2KFwicmF3L0RhaWx5X1dlYXRoZXJfUmF3XzE5OTAtMjAxNi5jc3ZcIilcblxuIyBjaGVjayB0aGF0IGRhdGEgaW1wb3J0ZWQgY29ycmVjdGx5XG5nbGltcHNlKHdlYXRoZXJfNzhfODkpXG5nbGltcHNlKHdlYXRoZXJfOTBfMTYpXG5gYGAifQ== -->
 <pre class="r"><code>weather_78_89 &lt;- read.csv(&quot;raw/Daily_Weather_Raw_1978-1989.csv&quot;)
-weather_90_16 &lt;- read.csv(&quot;raw/Daily_Weather_Raw_1990-2016.csv&quot;)</code></pre>
+weather_90_16 &lt;- read.csv(&quot;raw/Daily_Weather_Raw_1990-2016.csv&quot;)
+
+# check that data imported correctly
+glimpse(weather_78_89)
+glimpse(weather_90_16)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Read Excel files of recent data and combine sheets into one data frame</p>
+<p>Fix dates and remove unwanted rows and columns</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyAzMiBhcyBvZiBNYXkgMjAyMCwgZXhjbHVkZXMgbm90ZXMgc2hlZXRcbm51bV9zaGVldHMgPC0gMzJcbiMgbWFrZSBhIGxpc3Qgb2YgbW9udGhseSBzaGVldHMgYmVnaW5uaW5nIHdpdGggb2xkZXN0IDIgbW9udGhzXG5sMSA8LSByZWFkLnhsc3goXCJyYXcvRGFpbHlfV2VhdGhlcl9SYXdfMjAxNy1QcmVzZW50Lnhsc3hcIiwgbnVtX3NoZWV0cylcbmwyIDwtIHJlYWQueGxzeChcInJhdy9EYWlseV9XZWF0aGVyX1Jhd18yMDE3LVByZXNlbnQueGxzeFwiLCBudW1fc2hlZXRzIC0gMSlcbndlYXRoZXJfMTdfcHJlcyA8LSBsaXN0KGwxLCBsMilcbmZvciAoaSBpbiAobnVtX3NoZWV0cyAtIDIpOjEpIHtcbiAgbCA8LSByZWFkLnhsc3goXCJyYXcvRGFpbHlfV2VhdGhlcl9SYXdfMjAxNy1QcmVzZW50Lnhsc3hcIiwgaSlcbiAgd2VhdGhlcl8xN19wcmVzIDwtIGFwcGVuZCh3ZWF0aGVyXzE3X3ByZXMsIGxpc3QobCkpXG59XG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBwdXQgZGF0ZXMgaW4geW1kXG5cbiMgZXhwZWN0IDEzIGNvbHVtbnNcblxuYGBgIn0= -->
+<pre class="r"><code># put dates in ymd
+
+# expect 13 columns
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Read Excel files of recent data</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyAzMiBhcyBvZiBNYXkgMjAyMCwgZXhjbHVkZXMgbm90ZXMgc2hlZXRcbm51bV9zaGVldHMgPC0gMzJcblxuIyBjb2x1bW4gdHlwZXNcbmNvbHVtblR5cGVzIDwtIGMoXCJEYXRlXCIpXG5cbiMgbWFrZSBhIGxpc3Qgb2YgbW9udGhseSBzaGVldHMgYmVnaW5uaW5nIHdpdGggb2xkZXN0IDIgbW9udGhzIChzbyBtb250aCBpbmRpY2VzIHdvbid0IGNoYW5nZSlcbmwxIDwtIHJlYWQueGxzeChcInJhdy9EYWlseV9XZWF0aGVyX1Jhd18yMDE3LVByZXNlbnQueGxzeFwiLCBudW1fc2hlZXRzLCBjb2xDbGFzc2VzID0gY29sdW1uVHlwZXMsIGVuZFJvdyA9IDMyKVxubDIgPC0gcmVhZC54bHN4KFwicmF3L0RhaWx5X1dlYXRoZXJfUmF3XzIwMTctUHJlc2VudC54bHN4XCIsIG51bV9zaGVldHMgLSAxLCBjb2xDbGFzc2VzID0gY29sdW1uVHlwZXMsIGVuZFJvdyA9IDMyKVxud2VhdGhlcl8xN19wcmVzIDwtIGxpc3QobDEsIGwyKVxuZm9yIChpIGluIChudW1fc2hlZXRzIC0gMik6MikgeyAgIyBleGNsdWRlIGN1cnJlbnQgbW9udGgoaW5jb21wbGV0ZSBkYXRhKVxuICBsIDwtIHJlYWQueGxzeChcInJhdy9EYWlseV9XZWF0aGVyX1Jhd18yMDE3LVByZXNlbnQueGxzeFwiLCBpLCBjb2xDbGFzc2VzID0gY29sdW1uVHlwZXMsIGVuZFJvdyA9IDMyKVxuICB3ZWF0aGVyXzE3X3ByZXMgPC0gYXBwZW5kKHdlYXRoZXJfMTdfcHJlcywgbGlzdChsKSlcbn1cblxuIyBjaGVjayB0aGF0IGRhdGEgaW1wb3J0ZWQgY29ycmVjdGx5XG5udW1fbW9udGhzIDwtIG51bV9zaGVldHMgLSAxICAjIGV4Y2x1ZGUgY3VycmVudCBtb250aCAoaW5jb21wbGV0ZSBkYXRhKVxuIyBmb3IgKGkgaW4gMTpudW1fbW9udGhzKSB7XG4jICAgZ2xpbXBzZSh3ZWF0aGVyXzE3X3ByZXNbW2ldXSlcbiMgfVxuYGBgIn0= -->
 <pre class="r"><code># 32 as of May 2020, excludes notes sheet
 num_sheets &lt;- 32
-# make a list of monthly sheets beginning with oldest 2 months
-l1 &lt;- read.xlsx(&quot;raw/Daily_Weather_Raw_2017-Present.xlsx&quot;, num_sheets)
-l2 &lt;- read.xlsx(&quot;raw/Daily_Weather_Raw_2017-Present.xlsx&quot;, num_sheets - 1)
+
+# column types
+columnTypes &lt;- c(&quot;Date&quot;)
+
+# make a list of monthly sheets beginning with oldest 2 months (so month indices won't change)
+l1 &lt;- read.xlsx(&quot;raw/Daily_Weather_Raw_2017-Present.xlsx&quot;, num_sheets, colClasses = columnTypes, endRow = 32)
+l2 &lt;- read.xlsx(&quot;raw/Daily_Weather_Raw_2017-Present.xlsx&quot;, num_sheets - 1, colClasses = columnTypes, endRow = 32)
 weather_17_pres &lt;- list(l1, l2)
-for (i in (num_sheets - 2):1) {
-  l &lt;- read.xlsx(&quot;raw/Daily_Weather_Raw_2017-Present.xlsx&quot;, i)
+for (i in (num_sheets - 2):2) {  # exclude current month(incomplete data)
+  l &lt;- read.xlsx(&quot;raw/Daily_Weather_Raw_2017-Present.xlsx&quot;, i, colClasses = columnTypes, endRow = 32)
   weather_17_pres &lt;- append(weather_17_pres, list(l))
+}
+
+# check that data imported correctly
+num_months &lt;- num_sheets - 1  # exclude current month (incomplete data)
+# for (i in 1:num_months) {
+#   glimpse(weather_17_pres[[i]])
+# }</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Fix times in monthly data</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjb252ZXJ0IGRhdGV0aW1lcyBmcm9tIFRpbWUgY29sdW1uIGJhY2sgdG8ganVzdCB0aW1lc1xuZm9yIChpIGluIDE6bnVtX21vbnRocykge1xuICB3ZWF0aGVyXzE3X3ByZXNbW2ldXSRUaW1lIDwtIGZvcm1hdChzdHJwdGltZSh3ZWF0aGVyXzE3X3ByZXNbW2ldXSRUaW1lLCBcIiVZLSVtLSVkICVIOiVNOiVTXCIpLCBcIiVIOiVNXCIpXG4gICMgcHJpbnQod2VhdGhlcl8xN19wcmVzW1tpXV1bMl0pXG59XG5gYGAifQ== -->
+<pre class="r"><code># convert datetimes from Time column back to just times
+for (i in 1:num_months) {
+  weather_17_pres[[i]]$Time &lt;- format(strptime(weather_17_pres[[i]]$Time, &quot;%Y-%m-%d %H:%M:%S&quot;), &quot;%H:%M&quot;)
+  # print(weather_17_pres[[i]][2])
 }</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -1791,25 +1830,79 @@ for (i in (num_sheets - 2):1) {
 <p>Clean monthly data 2017-present before combining into single data frame</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBU0sgSkFTT046IGNsZWFuIHRoZW4gY29tYmluZSBvciB2aWNlIHZlcnNhP1xuZ2xpbXBzZSh3ZWF0aGVyXzE3X3ByZXNbWzFdXSlcblxuIyByZW1vdmUgY29sdW1ucyBhbmQgcm93cyB3aXRoIG9ubHkgTkEgZGF0YVxuZm9yIChpIGluIDE6bnVtX3NoZWV0cykge1xuICAjIGNvbnZlcnQgdG8gdGJsX2RmIHRvIHVzZSBkcGx5ciBmdW5jdGlvbnNcbn1cblxuIyBjaGVjayB0aGF0IGVhY2ggaGFzIGNvcnJlY3QgbnVtYmVyIG9mIHJvd3MgYW5kIGNvbHVtbnMgYmVmb3JlIGNvbWJpbmluZ1xubnVtX2NvbHMgPC0gMTcgICMgbGFzdCBjb2x1bW4gaW4gZXhjZWwgc2hlZXQgaXMgUVxuXG5gYGAifQ== -->
-<pre class="r"><code># ASK JASON: clean then combine or vice versa?
-glimpse(weather_17_pres[[1]])
-
-# remove columns and rows with only NA data
-for (i in 1:num_sheets) {
-  # convert to tbl_df to use dplyr functions
-}
-
-# check that each has correct number of rows and columns before combining
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGVjayB0aGF0IGVhY2ggaGFzIGNvcnJlY3QgbnVtYmVyIG9mIHJvd3MgYW5kIGNvbHVtbnMgYmVmb3JlIGNvbWJpbmluZ1xubnVtX2NvbHMgPC0gMTcgICMgbGFzdCBjb2x1bW4gaW4gZXhjZWwgc2hlZXQgaXMgUVxuZm9yIChpIGluIDE6bnVtX21vbnRocykge1xuICAjIHJlbW92ZSBjb2x1bW5zIG91dHNpZGUgbnVtX2NvbHNcbiAgcHJpbnQobmFtZXMod2VhdGhlcl8xN19wcmVzW1tpXV0pWzE3XSlcbiAgIyBvY3QyMDE4IGNvbnRhaW5zIGFuIGV4dHJhIGNvbHVtbj9cbiAgaWYgKGkgPT0gMTMpIHsgIFxuICAgIHdlYXRoZXJfMTdfcHJlc1tbaV1dIDwtIHdlYXRoZXJfMTdfcHJlc1tbaV1dWzE6KG51bV9jb2xzICsgMSldXG4gIH0gZWxzZSB7XG4gICAgd2VhdGhlcl8xN19wcmVzW1tpXV0gPC0gd2VhdGhlcl8xN19wcmVzW1tpXV1bMTpudW1fY29sc11cbiAgfVxufVxuYGBgIn0= -->
+<pre class="r"><code># check that each has correct number of rows and columns before combining
 num_cols &lt;- 17  # last column in excel sheet is Q
-</code></pre>
+for (i in 1:num_months) {
+  # remove columns outside num_cols
+  print(names(weather_17_pres[[i]])[17])
+  # oct2018 contains an extra column?
+  if (i == 13) {  
+    weather_17_pres[[i]] &lt;- weather_17_pres[[i]][1:(num_cols + 1)]
+  } else {
+    weather_17_pres[[i]] &lt;- weather_17_pres[[i]][1:num_cols]
+  }
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiTGFrZS5MZXZlbFwiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG5bMV0gXCJPdGhlci5PYnNlcnZhdGlvbnMuTm90ZXNcIlxuWzFdIFwiT3RoZXIuT2JzZXJ2YXRpb25zLk5vdGVzXCJcblsxXSBcIk90aGVyLk9ic2VydmF0aW9ucy5Ob3Rlc1wiXG4ifQ== -->
+<pre><code>[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Lake.Level&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;
+[1] &quot;Other.Observations.Notes&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByZW1vdmUgcm93cyBiZXlvbmQgbnVtYmVyIG9mIGRheXMgaW4gdGhhdCBtb250aFxuZm9yIChpIGluIDE6bnVtX21vbnRocykge1xuICBuIDwtIGRheXNfaW5fbW9udGgoYXMuRGF0ZSh3ZWF0aGVyXzE3X3ByZXNbW2ldXVsxMCwgMV0sIFwiJVktJW0tJWRcIikpXG4gIG5hbWVzKG4pIDwtIE5VTEwgICMgY29udmVydCBmcm9tIG5hbWVkIGludCB0byBqdXN0IGludFxuICB3ZWF0aGVyXzE3X3ByZXNbW2ldXSA8LSB3ZWF0aGVyXzE3X3ByZXNbW2ldXVsxOm4sIF1cbn1cbmBgYCJ9 -->
+<pre class="r"><code># remove rows beyond number of days in that month
+for (i in 1:num_months) {
+  n &lt;- days_in_month(as.Date(weather_17_pres[[i]][10, 1], &quot;%Y-%m-%d&quot;))
+  names(n) &lt;- NULL  # convert from named int to just int
+  weather_17_pres[[i]] &lt;- weather_17_pres[[i]][1:n, ]
+}</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Clean 2 historic data sets before combining with monthly into final data frame</p>
+<p>Combine historic data with monthly into final data frame</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Check bounds on all data fields</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Export</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCmF1dGhvcjogYXBhd2xpawotLS0KClJlcXVpcmVkIHBhY2thZ2VzCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkoeGxzeCkKb3B0aW9ucyhzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpCmBgYAoKUmVhZCBDU1YgaW50byBkYXRhIGZyYW1lcwpgYGB7cn0Kd2VhdGhlcl83OF84OSA8LSByZWFkLmNzdigicmF3L0RhaWx5X1dlYXRoZXJfUmF3XzE5NzgtMTk4OS5jc3YiKQp3ZWF0aGVyXzkwXzE2IDwtIHJlYWQuY3N2KCJyYXcvRGFpbHlfV2VhdGhlcl9SYXdfMTk5MC0yMDE2LmNzdiIpCiMgVE9ETzogY2hlY2sgdGhhdCBkYXRhIGltcG9ydGVkIGNvcnJlY3RseQpgYGAKClJlYWQgRXhjZWwgZmlsZXMgb2YgcmVjZW50IGRhdGEgYW5kIGNvbWJpbmUgc2hlZXRzIGludG8gb25lIGRhdGEgZnJhbWUKYGBge3J9CiMgMzIgYXMgb2YgTWF5IDIwMjAsIGV4Y2x1ZGVzIG5vdGVzIHNoZWV0Cm51bV9zaGVldHMgPC0gMzIKIyBtYWtlIGEgbGlzdCBvZiBtb250aGx5IHNoZWV0cyBiZWdpbm5pbmcgd2l0aCBvbGRlc3QgMiBtb250aHMKbDEgPC0gcmVhZC54bHN4KCJyYXcvRGFpbHlfV2VhdGhlcl9SYXdfMjAxNy1QcmVzZW50Lnhsc3giLCBudW1fc2hlZXRzKQpsMiA8LSByZWFkLnhsc3goInJhdy9EYWlseV9XZWF0aGVyX1Jhd18yMDE3LVByZXNlbnQueGxzeCIsIG51bV9zaGVldHMgLSAxKQp3ZWF0aGVyXzE3X3ByZXMgPC0gbGlzdChsMSwgbDIpCmZvciAoaSBpbiAobnVtX3NoZWV0cyAtIDIpOjEpIHsKICBsIDwtIHJlYWQueGxzeCgicmF3L0RhaWx5X1dlYXRoZXJfUmF3XzIwMTctUHJlc2VudC54bHN4IiwgaSkKICB3ZWF0aGVyXzE3X3ByZXMgPC0gYXBwZW5kKHdlYXRoZXJfMTdfcHJlcywgbGlzdChsKSkKfQojIFRPRE86IGNoZWNrIHRoYXQgZGF0YSBpbXBvcnRlZCBjb3JyZWN0bHkKYGBgCgpDbGVhbiBtb250aGx5IGRhdGEgMjAxNy1wcmVzZW50IGJlZm9yZSBjb21iaW5pbmcgaW50byBzaW5nbGUgZGF0YSBmcmFtZQpgYGB7cn0KIyBBU0sgSkFTT046IGNsZWFuIHRoZW4gY29tYmluZSBvciB2aWNlIHZlcnNhPwpnbGltcHNlKHdlYXRoZXJfMTdfcHJlc1tbMV1dKQoKIyByZW1vdmUgY29sdW1ucyBhbmQgcm93cyB3aXRoIG9ubHkgTkEgZGF0YQpmb3IgKGkgaW4gMTpudW1fc2hlZXRzKSB7CiAgIyBjb252ZXJ0IHRvIHRibF9kZiB0byB1c2UgZHBseXIgZnVuY3Rpb25zCn0KCiMgY2hlY2sgdGhhdCBlYWNoIGhhcyBjb3JyZWN0IG51bWJlciBvZiByb3dzIGFuZCBjb2x1bW5zIGJlZm9yZSBjb21iaW5pbmcKbnVtX2NvbHMgPC0gMTcgICMgbGFzdCBjb2x1bW4gaW4gZXhjZWwgc2hlZXQgaXMgUQoKYGBgCgpDbGVhbiAyIGhpc3RvcmljIGRhdGEgc2V0cyBiZWZvcmUgY29tYmluaW5nIHdpdGggbW9udGhseSBpbnRvIGZpbmFsIGRhdGEgZnJhbWU=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCmF1dGhvcjogYXBhd2xpawotLS0KClJlcXVpcmVkIHBhY2thZ2VzCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkoeGxzeCkKbGlicmFyeShqYW5pdG9yKQpvcHRpb25zKHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkKYGBgCgpSZWFkIENTViBpbnRvIGRhdGEgZnJhbWVzIChoaXN0b3JpYyBkYXRhIG9ubHkpCmBgYHtyfQp3ZWF0aGVyXzc4Xzg5IDwtIHJlYWQuY3N2KCJyYXcvRGFpbHlfV2VhdGhlcl9SYXdfMTk3OC0xOTg5LmNzdiIpCndlYXRoZXJfOTBfMTYgPC0gcmVhZC5jc3YoInJhdy9EYWlseV9XZWF0aGVyX1Jhd18xOTkwLTIwMTYuY3N2IikKCiMgY2hlY2sgdGhhdCBkYXRhIGltcG9ydGVkIGNvcnJlY3RseQpnbGltcHNlKHdlYXRoZXJfNzhfODkpCmdsaW1wc2Uod2VhdGhlcl85MF8xNikKYGBgCgpGaXggZGF0ZXMgYW5kIHJlbW92ZSB1bndhbnRlZCByb3dzIGFuZCBjb2x1bW5zCmBgYHtyfQojIHB1dCBkYXRlcyBpbiB5bWQgKGZpZ3VyZSBvdXQgaG93IHRvIGFkZCBmaXJzdCBwYXJ0IG9mIHllYXIgbnVtYmVyKQoKIyBleHBlY3QgMTMgY29sdW1ucwoKYGBgCgoKUmVhZCBFeGNlbCBmaWxlcyBvZiByZWNlbnQgZGF0YQpgYGB7cn0KIyAzMiBhcyBvZiBNYXkgMjAyMCwgZXhjbHVkZXMgbm90ZXMgc2hlZXQKbnVtX3NoZWV0cyA8LSAzMgoKIyBjb2x1bW4gdHlwZXMKY29sdW1uVHlwZXMgPC0gYygiRGF0ZSIpCgojIG1ha2UgYSBsaXN0IG9mIG1vbnRobHkgc2hlZXRzIGJlZ2lubmluZyB3aXRoIG9sZGVzdCAyIG1vbnRocyAoc28gbW9udGggaW5kaWNlcyB3b24ndCBjaGFuZ2UpCmwxIDwtIHJlYWQueGxzeCgicmF3L0RhaWx5X1dlYXRoZXJfUmF3XzIwMTctUHJlc2VudC54bHN4IiwgbnVtX3NoZWV0cywgY29sQ2xhc3NlcyA9IGNvbHVtblR5cGVzLCBlbmRSb3cgPSAzMikKbDIgPC0gcmVhZC54bHN4KCJyYXcvRGFpbHlfV2VhdGhlcl9SYXdfMjAxNy1QcmVzZW50Lnhsc3giLCBudW1fc2hlZXRzIC0gMSwgY29sQ2xhc3NlcyA9IGNvbHVtblR5cGVzLCBlbmRSb3cgPSAzMikKd2VhdGhlcl8xN19wcmVzIDwtIGxpc3QobDEsIGwyKQpmb3IgKGkgaW4gKG51bV9zaGVldHMgLSAyKToyKSB7ICAjIGV4Y2x1ZGUgY3VycmVudCBtb250aChpbmNvbXBsZXRlIGRhdGEpCiAgbCA8LSByZWFkLnhsc3goInJhdy9EYWlseV9XZWF0aGVyX1Jhd18yMDE3LVByZXNlbnQueGxzeCIsIGksIGNvbENsYXNzZXMgPSBjb2x1bW5UeXBlcywgZW5kUm93ID0gMzIpCiAgd2VhdGhlcl8xN19wcmVzIDwtIGFwcGVuZCh3ZWF0aGVyXzE3X3ByZXMsIGxpc3QobCkpCn0KCiMgY2hlY2sgdGhhdCBkYXRhIGltcG9ydGVkIGNvcnJlY3RseQpudW1fbW9udGhzIDwtIG51bV9zaGVldHMgLSAxICAjIGV4Y2x1ZGUgY3VycmVudCBtb250aCAoaW5jb21wbGV0ZSBkYXRhKQojIGZvciAoaSBpbiAxOm51bV9tb250aHMpIHsKIyAgIGdsaW1wc2Uod2VhdGhlcl8xN19wcmVzW1tpXV0pCiMgfQpgYGAKCkZpeCB0aW1lcyBpbiBtb250aGx5IGRhdGEKYGBge3J9CiMgY29udmVydCBkYXRldGltZXMgZnJvbSBUaW1lIGNvbHVtbiBiYWNrIHRvIGp1c3QgdGltZXMKZm9yIChpIGluIDE6bnVtX21vbnRocykgewogIHdlYXRoZXJfMTdfcHJlc1tbaV1dJFRpbWUgPC0gZm9ybWF0KHN0cnB0aW1lKHdlYXRoZXJfMTdfcHJlc1tbaV1dJFRpbWUsICIlWS0lbS0lZCAlSDolTTolUyIpLCAiJUg6JU0iKQogICMgcHJpbnQod2VhdGhlcl8xN19wcmVzW1tpXV1bMl0pCn0KYGBgCgpDbGVhbiBtb250aGx5IGRhdGEgMjAxNy1wcmVzZW50IGJlZm9yZSBjb21iaW5pbmcgaW50byBzaW5nbGUgZGF0YSBmcmFtZQpgYGB7cn0KIyBjaGVjayB0aGF0IGVhY2ggaGFzIGNvcnJlY3QgbnVtYmVyIG9mIHJvd3MgYW5kIGNvbHVtbnMgYmVmb3JlIGNvbWJpbmluZwpudW1fY29scyA8LSAxNyAgIyBsYXN0IGNvbHVtbiBpbiBleGNlbCBzaGVldCBpcyBRCgojIHJlbW92ZSBjb2x1bW5zIG91dHNpZGUgbnVtX2NvbHMKZm9yIChpIGluIDE6bnVtX21vbnRocykgewogICMgb2N0MjAxOCBjb250YWlucyBhbiBleHRyYSBjb2x1bW4/CiAgaWYgKGkgPT0gMTMpIHsgIAogICAgd2VhdGhlcl8xN19wcmVzW1tpXV0gPC0gd2VhdGhlcl8xN19wcmVzW1tpXV1bMToobnVtX2NvbHMgKyAxKV0KICB9IGVsc2UgewogICAgd2VhdGhlcl8xN19wcmVzW1tpXV0gPC0gd2VhdGhlcl8xN19wcmVzW1tpXV1bMTpudW1fY29sc10KICB9Cn0KCiMgcmVtb3ZlIHJvd3MgYmV5b25kIG51bWJlciBvZiBkYXlzIGluIHRoYXQgbW9udGgKZm9yIChpIGluIDE6bnVtX21vbnRocykgewogIG4gPC0gZGF5c19pbl9tb250aChhcy5EYXRlKHdlYXRoZXJfMTdfcHJlc1tbaV1dWzEwLCAxXSwgIiVZLSVtLSVkIikpCiAgbmFtZXMobikgPC0gTlVMTCAgIyBjb252ZXJ0IGZyb20gbmFtZWQgaW50IHRvIGp1c3QgaW50CiAgd2VhdGhlcl8xN19wcmVzW1tpXV0gPC0gd2VhdGhlcl8xN19wcmVzW1tpXV1bMTpuLCBdCn0KYGBgCgpDb21iaW5lIGhpc3RvcmljIGRhdGEgd2l0aCBtb250aGx5IGludG8gZmluYWwgZGF0YSBmcmFtZQpgYGB7cn0KCmBgYAoKQ2hlY2sgYm91bmRzIG9uIGFsbCBkYXRhIGZpZWxkcwpgYGB7cn0KCmBgYAoKRXhwb3J0CmBgYHtyfQoKYGBgCg==</div>
 
 
 
