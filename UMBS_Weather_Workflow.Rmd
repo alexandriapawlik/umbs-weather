@@ -1,19 +1,52 @@
 ---
 title: "R Notebook"
 output: html_notebook
+author: apawlik
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
+Required packages
 ```{r}
-plot(cars)
+library(tidyverse)
+library(lubridate)
+library(xlsx)
+options(stringsAsFactors = FALSE)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+Read CSV into data frames
+```{r}
+weather_78_89 <- read.csv("raw/Daily_Weather_Raw_1978-1989.csv")
+weather_90_16 <- read.csv("raw/Daily_Weather_Raw_1990-2016.csv")
+# TODO: check that data imported correctly
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+Read Excel files of recent data and combine sheets into one data frame
+```{r}
+# 32 as of May 2020, excludes notes sheet
+num_sheets <- 32
+# make a list of monthly sheets beginning with oldest 2 months
+l1 <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", num_sheets)
+l2 <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", num_sheets - 1)
+weather_17_pres <- list(l1, l2)
+for (i in (num_sheets - 2):1) {
+  l <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", i)
+  weather_17_pres <- append(weather_17_pres, list(l))
+}
+# TODO: check that data imported correctly
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+Clean monthly data 2017-present before combining into single data frame
+```{r}
+# ASK JASON: clean then combine or vice versa?
+glimpse(weather_17_pres[[1]])
 
+# remove columns and rows with only NA data
+for (i in 1:num_sheets) {
+  # convert to tbl_df to use dplyr functions
+}
+
+# check that each has correct number of rows and columns before combining
+num_cols <- 17  # last column in excel sheet is Q
+
+```
+
+Clean 2 historic data sets before combining with monthly into final data frame
