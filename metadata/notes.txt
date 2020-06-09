@@ -1,0 +1,59 @@
+
+ORGANIZATION
+
+was there a methods change between these 3 files?
+	if not, subset based on years?
+
+1 publication
+
+if second publication:
+- gap filling
+- aggregation
+
+DONT INCLUDE UNITS IN NAMES
+
+----------------
+90-16_spreadsheet_edits
+
+two cloud types
+1430
+865
+869
+
+data to be fixed
+1552
+1430
+1811
+
+check notes for cloud types
+----------------
+
+ASK ADAM
+
+----------------
+PLAN
+
+1. In Excel:
+- move notes from excel margins to notes column
+- move data from notes field to data fields
+	- both CSV and excel
+
+2. In R:
+- import data
+- remove extra rows and columns
+- fix date and time data
+- glimpse variable names and aggregate tables
+- quality assurance:
+	- remove white space
+	- make sure all missing values are NA
+	- check for characters in number columns
+		- change T to 0, specify in metadata that 0=trace
+	- make cloud types consistent and replace with full types
+		- check for invalid cloud types and replace with NA
+	- add flag column for bounds checking
+		- standardize flags across datasets
+	- check number precision based on metadata
+- export as CSV
+
+
+

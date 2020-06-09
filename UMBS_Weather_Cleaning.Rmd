@@ -1,0 +1,183 @@
+---
+title: "R Notebook"
+output: html_notebook
+author: apawlik
+---
+
+Required packages
+```{r}
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(xlsx)
+library(tibble)
+library(dataMaid)
+options(stringsAsFactors = FALSE)
+```
+
+
+
+
+Read CSV into data frames (older data only)
+```{r}
+weather_78_89 <- read.csv("raw/Daily_Weather_Raw_1978-1989.csv")
+weather_90_16 <- read.csv("raw/Daily_Weather_Raw_1990-2016.csv")
+```
+
+Remove unwanted columns from older data
+```{r}
+# remove unwanted columns from 90-16
+weather_90_16 <- weather_90_16[1:13]
+```
+
+Fix data types of older data
+```{r}
+# put dates in standard format
+weather_78_89["Date"] <- as.Date(weather_78_89[[ "Date" ]], format = "%m/%d/%y")
+weather_90_16["UMB"] <- as.Date(weather_90_16[[ "UMB" ]], format = "%m/%d/%y")
+```
+
+Compile older data into single data frame
+```{r}
+# examine column names, determine how to align
+names(weather_78_89)
+names(weather_90_16)
+
+# change column names
+names(weather_90_16)[1] <- "Date"
+
+# combine 2 old datasets vertically
+weather_older <- rbind(weather_78_89, weather_90_16)
+
+# glimpse(weather_older)
+```
+
+
+
+
+Read Excel files into data frames (newer data only)
+```{r}
+# 32 as of May 2020, excludes notes sheet
+num_sheets <- 32
+
+# column types for imported data
+columnTypes <- c("Date")
+
+# make a list of monthly sheets beginning with oldest 2 months (so month indices won't change)
+l1 <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", num_sheets, colClasses = columnTypes, endRow = 32)
+l2 <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", num_sheets - 1, colClasses = columnTypes, endRow = 32)
+weather_17_pres <- list(l1, l2)
+for (i in (num_sheets - 2):2) {  # exclude current month (incomplete data), so last month is last in list
+  l <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", i, colClasses = columnTypes, endRow = 32)
+  weather_17_pres <- append(weather_17_pres, list(l))
+}
+
+num_months <- num_sheets - 1  # exclude current month (incomplete data)
+```
+
+Remove unwanted rows and columns from newer data
+```{r}
+# check that each has correct number of rows and columns before combining
+num_cols <- 17  # last column in excel sheet is Q
+
+# remove columns outside num_cols
+for (i in 1:num_months) {
+  # oct2018 (sheet 13) contains an extra column (13), remove it
+  if (i == 13) {  
+    weather_17_pres[[i]] <- weather_17_pres[[i]][c(1:12, 14:(num_cols + 1))]
+  } else {
+    weather_17_pres[[i]] <- weather_17_pres[[i]][1:num_cols]
+  }
+}
+
+# remove rows beyond number of days in that month
+for (i in 1:num_months) {
+  n <- days_in_month(as.Date(weather_17_pres[[i]][10, 1], "%Y-%m-%d"))
+  names(n) <- NULL  # convert from named int to just int
+  weather_17_pres[[i]] <- weather_17_pres[[i]][1:n, ]
+}
+```
+
+Fix data types of newer data
+```{r}
+# convert datetimes from Time column back to just times
+for (i in 1:num_months) {
+  weather_17_pres[[i]]$Time <- format(strptime(weather_17_pres[[i]]$Time, "%Y-%m-%d %H:%M:%S"), "%H:%M")
+  # print(weather_17_pres[[i]][2])
+}
+```
+
+Compile newer data into single data frame
+```{r}
+# combine elements of list vertically
+weather_newer <- rbind(weather_17_pres[[1]], weather_17_pres[[2]])
+for (i in 3:num_months) {
+  weather_newer <- rbind(weather_newer, weather_17_pres[[i]])
+}
+
+# glimpse(weather_newer)
+```
+
+
+
+
+Combine older with newer into final data frame
+```{r}
+# older data has 3 missing columns
+weather_older <- add_column(weather_older, Time = NA, .after = 1)
+weather_older <- add_column(weather_older, Evaporation.Pan = NA, .after = 13)
+weather_older <- add_column(weather_older, Lake.Level = NA, .after = 14)
+```
+```{r}
+# remove wind speed knots column from newer (redundant)
+names(weather_newer)[11] = "Wind.Speed.Knots"
+w <- as_tibble(weather_newer)
+w %>% filter(!is.na(Wind.Speed.Knots) && is.na(Wind.Speed.mph))
+# no rows rely on knots data over mph data
+weather_newer <- weather_newer[-11]
+```
+```{r}
+# newer columns can be renamed to be shorter with details moved to metadata
+names(weather_newer)[3] = "Max.Temp"
+names(weather_older)[3] = "Max.Temp"
+names(weather_newer)[4] = "Min.Temp"
+names(weather_older)[4] = "Min.Temp"
+names(weather_newer)[5] = "Current.Temp"
+names(weather_older)[5] = "Current.Temp"
+names(weather_newer)[11] = "Wind.Speed"
+names(weather_older)[11] = "Wind.Speed"
+
+names(weather_newer)[16] = "Notes"
+```
+
+```{r}
+# examine column names, determine how to align
+names(weather_older)
+names(weather_newer)
+
+
+
+# check
+# names(weather_older)
+# names(weather_newer)
+```
+
+Check bounds on all data fields
+```{r}
+# type check for all fields
+
+# meaning of T symbol in older columns 5-7
+
+# fix cardinal directions
+
+# replace cloud type abreviations with full strings
+
+# fill empty cells with NA
+
+
+```
+
+Export
+```{r}
+
+```
