@@ -1,0 +1,8 @@
+keyword	keywordThesaurus
+Air temperature	LTER
+Snow accumulation	LTER
+Rain	LTER
+Precipitation	LTER
+Weather	LTER
+University of Michigan Biological Station	
+Snow	LTER

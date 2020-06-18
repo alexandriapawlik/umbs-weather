@@ -64,11 +64,11 @@ num_sheets <- 32
 columnTypes <- c("Date")
 
 # make a list of monthly sheets beginning with oldest 2 months (so month indices won't change)
-l1 <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", num_sheets, colClasses = columnTypes, endRow = 32)
-l2 <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", num_sheets - 1, colClasses = columnTypes, endRow = 32)
+l1 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets, colClasses = columnTypes, endRow = 32)
+l2 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets - 1, colClasses = columnTypes, endRow = 32)
 weather_17_pres <- list(l1, l2)
 for (i in (num_sheets - 2):2) {  # exclude current month (incomplete data), so last month is last in list
-  l <- read.xlsx("raw/Daily_Weather_Raw_2017-Present.xlsx", i, colClasses = columnTypes, endRow = 32)
+  l <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", i, colClasses = columnTypes, endRow = 32)
   weather_17_pres <- append(weather_17_pres, list(l))
 }
 
@@ -123,61 +123,324 @@ for (i in 3:num_months) {
 
 Combine older with newer into final data frame
 ```{r}
-# older data has 3 missing columns
-weather_older <- add_column(weather_older, Time = NA, .after = 1)
-weather_older <- add_column(weather_older, Evaporation.Pan = NA, .after = 13)
-weather_older <- add_column(weather_older, Lake.Level = NA, .after = 14)
-```
-```{r}
-# remove wind speed knots column from newer (redundant)
-names(weather_newer)[11] = "Wind.Speed.Knots"
-w <- as_tibble(weather_newer)
-w %>% filter(!is.na(Wind.Speed.Knots) && is.na(Wind.Speed.mph))
-# no rows rely on knots data over mph data
-weather_newer <- weather_newer[-11]
-```
-```{r}
-# newer columns can be renamed to be shorter with details moved to metadata
-names(weather_newer)[3] = "Max.Temp"
-names(weather_older)[3] = "Max.Temp"
-names(weather_newer)[4] = "Min.Temp"
-names(weather_older)[4] = "Min.Temp"
-names(weather_newer)[5] = "Current.Temp"
-names(weather_older)[5] = "Current.Temp"
-names(weather_newer)[11] = "Wind.Speed"
-names(weather_older)[11] = "Wind.Speed"
-
-names(weather_newer)[16] = "Notes"
-```
-
-```{r}
 # examine column names, determine how to align
 names(weather_older)
 names(weather_newer)
 
+# convert to tibble to use dplyr, trim whitespaces
+weather_older_t <- as_tibble(lapply(weather_older, trimws))
+weather_newer_t <- as_tibble(lapply(weather_newer, trimws))
 
+# check if any rows rely on knots data over mph data
+weather_newer_t %>% 
+  filter(!is.na(Wind.Speed..knots.) && is.na(Wind.Speed..mph.))
 
+# remove wind speed knots column from newer (redundant)
+weather_newer_t <- weather_newer_t %>%
+  select(-Wind.Speed..knots.)
+
+# older data has 3 missing columns
+weather_older_t <- weather_older_t %>%
+  mutate(Time = NA, .after = 1) %>% 
+  mutate(Evaporation.Pan = NA, .after = 13) %>% 
+  mutate(Lake.Level = NA, .after = 14)
+
+# move precipitation column in old data
+weather_older_t <- weather_older_t %>% 
+  relocate(RAIN.GAUGE, .after = 6)
+
+# columns can be renamed to be shorter with details moved to metadata
+weather_newer_t <- weather_newer_t %>% 
+  rename(Max_Temperature = X24.Hr.Temp.Max) %>% 
+  rename(Min_Temperature = X24.Hr.Temp.Min) %>% 
+  rename(Current_Temperature = Temp.Current) %>% 
+  rename(Precipitation_Belfort = X24.Hr.Precip..Belfort.) %>% 
+  rename(Precipitation_ETI = X24.Hr.Precip..ETI.) %>% 
+  rename(Snowfall = X24.Hr.Snow..in.) %>% 
+  rename(Snow_On_Ground = Official.Snow.on.Ground..in.) %>% 
+  rename(Wind_Direction = Wind.Direction) %>% 
+  rename(Wind_Speed = Wind.Speed..mph.) %>% 
+  rename(Sky_Cover = Sky.Cover.) %>% 
+  rename(Cloud_Type = Cloud.Type) %>% 
+  rename(Evaporation_Pan = Evaporation.Pan) %>% 
+  rename(Lake_Level = Lake.Level) %>% 
+  rename(Notes = Other.Observations.Notes)
+
+weather_older_t <- weather_older_t %>% 
+  rename(Max_Temperature = Max.Temp) %>% 
+  rename(Min_Temperature = Min.Temp) %>% 
+  rename(Current_Temperature = Observed.Temp) %>% 
+  rename(Precipitation_Belfort = Rain.Melted..snow..etc) %>% 
+  rename(Precipitation_ETI = RAIN.GAUGE) %>% 
+  rename(Snowfall = Snow..ice.pellets..hail) %>% 
+  rename(Snow_On_Ground = Snow.ice.pellets..hail..ice.on.ground) %>% 
+  rename(Wind_Direction = Wind.Direction) %>% 
+  rename(Wind_Speed = Wind.Speed.MPH) %>%
+  rename(Sky_Cover = Sky.Cover) %>% 
+  rename(Cloud_Type = Cloud.Type) %>% 
+  rename(Evaporation_Pan = Evaporation.Pan) %>% 
+  rename(Lake_Level = Lake.Level)
+  
 # check
-# names(weather_older)
-# names(weather_newer)
+names(weather_older_t)
+names(weather_newer_t)
+
+# combine
+weather <- rbind(weather_older_t, weather_newer_t)
+glimpse(weather)
 ```
 
-Check bounds on all data fields
+Check missing value codes
 ```{r}
-# type check for all fields
+# make sure no dates are missing
+weather %>% filter(is.na(Date))
+weather %>% filter(Date == "")
 
-# meaning of T symbol in older columns 5-7
-
-# fix cardinal directions
-
-# replace cloud type abreviations with full strings
+# make sure all missing values are NA
+lapply(weather, identifyMissing)
 
 # fill empty cells with NA
+weather <- weather %>%
+  mutate_if(is.character, list(~na_if(., "")))
+lapply(weather, identifyMissing)
 
-
+# remove values that don't fit data type
+weather <- weather %>%
+  mutate(Precipitation_Belfort = na_if(Precipitation_Belfort, ".33 avg 24-27th")) %>% 
+  mutate(Precipitation_ETI = na_if(Precipitation_ETI, ".")) %>% 
+  mutate(Precipitation_ETI = na_if(Precipitation_ETI, ".15.")) %>% 
+  mutate(Precipitation_ETI = na_if(Precipitation_ETI, ".28.09")) %>% 
+  mutate(Precipitation_ETI = na_if(Precipitation_ETI, "NA")) %>% 
+  mutate(Snowfall = na_if(Snowfall, '.5"')) %>% 
+  mutate(Snow_On_Ground = na_if(Snow_On_Ground, ".6.5")) %>% 
+  mutate(Wind_Direction = na_if(Wind_Direction, "8")) %>% 
+  mutate(Wind_Direction = na_if(Wind_Direction, "88")) %>% 
+  mutate(Wind_Direction = na_if(Wind_Direction, "9")) %>% 
+  mutate(Wind_Direction = na_if(Wind_Direction, "99")) %>% 
+  mutate(Sky_Cover = na_if(Sky_Cover, "80")) %>% 
+  mutate(Notes = na_if(Notes, "8"))
 ```
+
+Fix types of all data fields
+```{r}
+# add all flag columns for numeric variable, note trace values in flag column
+weather <- weather %>% 
+  mutate(Flag_Max_Temperature = NA) %>% 
+  mutate(Flag_Min_Temperature = NA) %>% 
+  mutate(Flag_Current_Temperature = NA) %>% 
+  mutate(Flag_Precipitation_Belfort = ifelse(Precipitation_Belfort == "T", "T", NA)) %>% 
+  mutate(Flag_Precipitation_ETI = ifelse(Precipitation_ETI == "T", "T", NA)) %>% 
+  mutate(Flag_Snowfall = ifelse(Snowfall == "T", "T", NA)) %>% 
+  mutate(Flag_Snow_On_Ground = ifelse(Snow_On_Ground == "T", "T", NA)) %>% 
+  mutate(Flag_Wind_Speed = NA) %>% 
+  mutate(Flag_Evaporation_Pan = NA) %>% 
+  mutate(Flag_Lake_Level = NA)
+
+# change T values to NA
+weather <- weather %>% 
+  mutate(Precipitation_Belfort = na_if(Precipitation_Belfort, "T")) %>% 
+  mutate(Precipitation_ETI = na_if(Precipitation_ETI, "T")) %>% 
+  mutate(Snowfall = na_if(Snowfall, "T")) %>% 
+  mutate(Snow_On_Ground = na_if(Snow_On_Ground, "T"))
+
+# typecast columns that are not factors
+weather <- weather %>% 
+  mutate(Max_Temperature = as.integer(Max_Temperature)) %>% 
+  mutate(Min_Temperature = as.integer(Min_Temperature)) %>% 
+  mutate(Current_Temperature = as.integer(Current_Temperature)) %>% 
+  mutate(Precipitation_Belfort = as.numeric(Precipitation_Belfort)) %>%
+  mutate(Precipitation_ETI = as.numeric(Precipitation_ETI)) %>% 
+  mutate(Snowfall = as.numeric(Snowfall)) %>% 
+  mutate(Snow_On_Ground = as.numeric(Snow_On_Ground)) %>% 
+  mutate(Wind_Speed = as.numeric(Wind_Speed)) %>% 
+  mutate(Sky_Cover = as.integer(Sky_Cover)) %>% 
+  mutate(Evaporation_Pan = as.numeric(Evaporation_Pan)) %>% 
+  mutate(Lake_Level = as.numeric(Lake_Level))
+
+lapply(weather, identifyMissing)
+```
+
+Fix factor types
+```{r}
+# convert degrees to cardinal direction
+# degreeToDirection <- function(degree){
+#   # if it's a number, convert
+#   if (!is.na(as.numeric(degree))) {
+#     d <- as.numeric(degree)
+#     if ((d > 348.75 & d <= 360) | (d <= 11.25 & d >= 0)) {
+#       return("N")
+#     } else if (d > 11.25 & d <= 33.75) {
+#       return("NNE")
+#     } else if (d > 33.75 & d <= 56.25) {
+#       return("NE")
+#     } else if (d > 56.25 & d <= 78.75) {
+#       return("ENE")
+#     } else if (d > 78.75 & d <= 101.25) {
+#       return("E")
+#     } else if (d > 101.25 & d <= 123.75) {
+#       return("ESE")
+#     } else if (d > 123.75 & d <= 146.25) {
+#       return("SE")
+#     } else if (d > 146.25 & d <= 168.75) {
+#       return("SSE")
+#     } else if (d > 168.75 & d <= 191.25) {
+#       return("S")
+#     } else if (d > 191.25 & d <= 213.75) {
+#       return("SSW")
+#     } else if (d > 213.75 & d <= 236.25) {
+#       return("SW")
+#     } else if (d > 236.25 & d <= 258.75) {
+#       return("WSW")
+#     } else if (d > 258.75 & d <= 281.25) {
+#       return("W")
+#     } else if (d > 281.25 & d <= 303.75) {
+#       return("WNW")
+#     } else if (d > 303.75 & d <= 326.25) {
+#       return("NW")
+#     } else if (d > 326.25 & d <= 348.75) {
+#       return("NNW")
+#     }
+#     return("NA")
+#   } else { # if not a number, just return it
+#     return(degree)
+#   }
+# }
+
+
+# fix factors for Wind Direction
+weather$Wind_Direction <- toupper(weather$Wind_Direction)
+
+directions = c("N", "S", "E", "W", "NW", "NE", "SW", "SE", "NNW", "WNW", "NNE", "ENE", "WSW", "SSW", "ESE", "SSE")
+
+# replace values that aren't in the valid options
+mask <- weather$Wind_Direction %in% directions
+weather <- weather %>% 
+  mutate(Wind_Direction = replace(Wind_Direction, !mask, NA))
+
+weather <- weather %>% 
+  mutate(Wind_Direction = as.factor(Wind_Direction))
+
+identifyLoners(weather$Wind_Direction)
+
+
+# fix factors for cloud type
+weather$Cloud_Type <- toupper(weather$Cloud_Type)
+
+# check existing cloud types
+weather %>% 
+  group_by(Cloud_Type) %>%
+  summarise(n_rows = length(Cloud_Type))
+
+# replace values that aren't in the valid options
+
+clouds = c("CI", "CC", "CS", "AC", "AS", "NS", "SC", "ST", "CU", "CB")
+
+mask <- weather$Cloud_Type %in% clouds
+weather <- weather %>%
+  mutate(Cloud_Type = replace(Cloud_Type, !mask, NA))
+
+weather <- weather %>% 
+  mutate(Cloud_Type = as.factor(Cloud_Type))
+
+identifyLoners(weather$Cloud_Type)
+
+# replace abbreviations
+levels(weather$Cloud_Type)
+levels(weather$Cloud_Type)[1] <- "ALTOCUMULUS"
+levels(weather$Cloud_Type)[2] <- "ALTOSTRATUS"
+levels(weather$Cloud_Type)[3] <- "CIRROCUMULUS"
+levels(weather$Cloud_Type)[4] <- "CIRRUS"
+levels(weather$Cloud_Type)[5] <- "CIRROSTRATUS"
+levels(weather$Cloud_Type)[6] <- "CUMULUS"
+levels(weather$Cloud_Type)[7] <- "NIMBOSTRATUS"
+levels(weather$Cloud_Type)[8] <- "STRATOCUMULUS"
+levels(weather$Cloud_Type)[9] <- "STRATUS"
+
+# check
+weather %>% 
+  group_by(Cloud_Type) %>%
+  summarise(n_rows = length(Cloud_Type))
+```
+
+Check bounds on all data types
+```{r}
+# check min and max dates for out-of-bound dates
+min(weather$Date)
+max(weather$Date)
+
+# flag out-of-bounds temperatures
+weather <- weather %>% 
+  mutate(Flag_Max_Temperature = ifelse((Max_Temperature > 120) | (Max_Temperature < -20), "R", NA)) %>% 
+  mutate(Flag_Min_Temperature = ifelse((Min_Temperature > 120) | (Min_Temperature < -40), "R", NA)) %>%
+  mutate(Flag_Current_Temperature = ifelse((Current_Temperature > 120) | (Current_Temperature < -40), "R", NA))
+
+# flag other out-of-bounds measurements
+weather <- weather %>% 
+  mutate(Flag_Wind_Speed = ifelse(Wind_Speed > 100, "R", NA))
+    
+mask <- weather$Precipitation_ETI > 10  # avoid overwriting Ts with logical slicing
+weather <- weather %>% 
+  mutate(Flag_Precipitation_ETI = replace(Flag_Precipitation_ETI, mask, "R"))
+
+mask <- weather$Snow_On_Ground > 100
+weather <- weather %>% 
+  mutate(Flag_Snow_On_Ground = replace(Flag_Snow_On_Ground, mask, "R"))
+
+# flag possible instrumentation changes
+weather$Notes <- toupper(weather$Notes)
+
+mask <- grepl("UV-B", weather$Notes, ignore.case = TRUE)
+weather <- weather %>% 
+  mutate(Flag_Max_Temperature = replace(Flag_Max_Temperature, mask, "I")) %>% 
+  mutate(Flag_Min_Temperature = replace(Flag_Min_Temperature, mask, "I")) %>% 
+  mutate(Flag_Current_Temperature = replace(Flag_Current_Temperature, mask, "I"))
+
+mask <- grepl("iButton", weather$Notes, ignore.case = TRUE) | grepl("thermochron", weather$Notes, ignore.case = TRUE)
+weather <- weather %>% 
+  mutate(Flag_Max_Temperature = replace(Flag_Max_Temperature, mask, "I")) %>% 
+  mutate(Flag_Min_Temperature = replace(Flag_Min_Temperature, mask, "I")) %>% 
+  mutate(Flag_Current_Temperature = replace(Flag_Current_Temperature, mask, "I"))
+
+mask <- grepl("airport", weather$Notes, ignore.case = TRUE)
+weather <- weather %>%
+  mutate(Flag_Snowfall = replace(Flag_Snowfall, mask, "I")) %>%
+  mutate(Flag_Snow_On_Ground = replace(Flag_Snow_On_Ground, mask, "I"))
+
+mask <- grepl("ETI", weather$Notes, ignore.case = TRUE)
+weather <- weather %>%
+  mutate(Flag_Precipitation_ETI = replace(Flag_Precipitation_ETI, mask, "I"))
+
+mask <- grepl("evap", weather$Notes, ignore.case = TRUE)
+weather <- weather %>%
+  mutate(Flag_Evaporation_Pan = replace(Flag_Evaporation_Pan, mask, "I"))
+
+# flag possible instrument error
+mask <- weather$Wind_Speed <= 0
+weather <- weather %>% 
+  mutate(Flag_Wind_Speed = replace(Flag_Wind_Speed, mask, "D"))
+
+# check precision based on metadata
+weather$Precipitation_Belfort <- round(weather$Precipitation_Belfort, digits = 2)
+weather$Precipitation_ETI <- round(weather$Precipitation_ETI, digits = 2)
+weather$Snowfall <- round(weather$Snowfall, digits = 2)
+weather$Snow_On_Ground <- round(weather$Snow_On_Ground, digits = 1)
+weather$Wind_Speed <- round(weather$Wind_Speed, digits = 6)
+```
+
 
 Export
 ```{r}
+# omit evaporation by Adam's request
+weather <- weather %>% 
+  select(-Evaporation_Pan, -Flag_Evaporation_Pan, -Lake_Level, -Flag_Lake_Level)
 
+# remove wind due to instrument inconsistency
+weather <- weather %>% 
+  select(-Wind_Direction, -Wind_Speed, -Flag_Wind_Speed)
+
+# sort
+weather <- weather %>% 
+  arrange(Date)
+
+write_csv(weather, "data_objects/weather.csv")
 ```

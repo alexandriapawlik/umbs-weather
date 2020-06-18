@@ -1,0 +1,7 @@
+givenName	middleInitial	surName	organizationName	electronicMailAddress	userId	role	projectTitle	fundingAgency	fundingNumber
+Robert		Vande Kopple	University of Michigan Biological Station	bvk@umich.edu		Creator			
+Adam	T	Schubel	University of Michigan Biological Station	aschubel@umich.edu		PI			
+Jason		Tallant	University of Michigan Biological Station	jtallant@umich.edu	0000-0003-4790-8772	Data Manager			
+Sherry		Webster	University of Michigan Biological Station	swebs@umich.edu		Data Entry			
+Alexandria	K	Pawlik	University of Michigan	apawlik@umich.edu	0000-0001-7806-8206	Data Cleaning			
+Jason		Tallant	University of Michigan Biological Station	jtallant@umich.edu	0000-0003-4790-8772	Contact			

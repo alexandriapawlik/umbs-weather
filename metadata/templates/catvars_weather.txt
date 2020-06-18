@@ -1,0 +1,35 @@
+attributeName	code	definition
+Sky_Cover	8	8 oktas. Full cloud cover with no breaks.
+Sky_Cover	0	0 oktas. Complete absence of clouds.
+Sky_Cover	1	1 okta. 1 eighth or less of the sky dome covered by clouds, but not an absence of clouds..
+Sky_Cover	5	5 oktas. 5 eighths of the sky dome covered by clouds.
+Sky_Cover	6	6 oktas. 6 eighths of the sky dome covered by clouds.
+Sky_Cover	7	7 oktas. 7 eighths or more of the sky dome covered by clouds, but not full cloud cover.
+Sky_Cover	4	4 oktas. Half of the sky dome covered by clouds.
+Sky_Cover	2	2 oktas. 2 eighths of the sky dome covered by clouds.
+Sky_Cover	3	3 oktas. 3 eights of the sky dome covered by clouds.
+Sky_Cover	9	9 oktas. Sky obscured by fog or other meteorological phenomena.
+Cloud_Type	STRATUS	Primarily stratus (St) clouds observed.
+Cloud_Type	CUMULUS	Primarily cumulus (Cu) clouds observed.
+Cloud_Type	NIMBOSTRATUS	Primarily nimbostratus (Ns) clouds observed.
+Cloud_Type	CIRROCUMULUS	Primarily cirrocumulus (Cc) clouds observed.
+Cloud_Type	STRATOCUMULUS	Primarily stratocumulus (Sc) clouds observed.
+Cloud_Type	CIRRUS	Primarily cirrus (Ci) clouds observed.
+Cloud_Type	CIRROSTRATUS	Primarily cirrostratus (Cs) clouds observed.
+Cloud_Type	ALTOCUMULUS	Primarily altocumulus (Ac) clouds observed.
+Cloud_Type	ALTOSTRATUS	Primarily altostratus (As) clouds observed.
+Flag_Max_Temperature	R	Data value potentially out-of-range.
+Flag_Max_Temperature	I	Possible instrument change. See notes field.
+Flag_Min_Temperature	R	Data value potentially out-of-range.
+Flag_Min_Temperature	I	Possible instrument change. See notes field.
+Flag_Current_Temperature	R	Data value potentially out-of-range.
+Flag_Current_Temperature	I	Possible instrument change. See notes field.
+Flag_Precipitation_Belfort	T	Trace amounts of precipitation measured.
+Flag_Precipitation_ETI	R	Data value potentially out-of-range.
+Flag_Precipitation_ETI	T	Trace amounts of precipitation measured.
+Flag_Precipitation_ETI	I	Possible instrument change. See notes field.
+Flag_Snowfall	T	Trace amounts of precipitation measured.
+Flag_Snowfall	I	Possible instrument change. See notes field.
+Flag_Snow_On_Ground	T	Trace amounts of precipitation measured.
+Flag_Snow_On_Ground	R	Data value potentially out-of-range.
+Flag_Snow_On_Ground	I	Possible instrument change. See notes field.

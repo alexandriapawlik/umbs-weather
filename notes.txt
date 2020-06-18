@@ -1,0 +1,90 @@
+
+ORGANIZATION
+
+was there a methods change between these 3 files?
+	if not, subset based on years?
+
+1 publication
+
+if second publication:
+- gap filling
+- aggregation
+
+DONT INCLUDE UNITS IN NAMES
+
+----------------
+
+90-16_spreadsheet_edits
+
+two cloud types
+1430
+865
+869
+
+data to be fixed
+1552
+1430
+1811
+
+check notes for cloud types
+
+----------------
+
+ASK ADAM
+----------------
+
+PLAN
+
+1. In Excel:
+- move notes from excel margins to notes column 17-present
+
+2. In R:
+- import data
+- remove extra rows and columns
+- fix date and time data
+- change variable names and aggregate tables
+- quality assurance:
+	- remove white space
+	- make sure all missing values are NA
+	- check for characters in number columns
+		- change T to trace column (or 0)
+	- make cloud types consistent and replace with full types
+		- check for invalid cloud types and replace with NA
+	- add flag column for bounds checking
+		- standardize flags across datasets
+		- temp: check simple reasonable range
+		- flag for potential instrument change
+	- check number precision based on metadata
+- export as CSV
+
+3. Metadata
+- compile metadata sources
+	- check that all notes from Adam via email have been factored in 
+- generate EML
+
+----------------
+
+TO DO
+
+sync R script with plan
+sync metadata file with R script
+
+----------------
+
+NOTES FROM ADAM
+
+In instances where temperatures were not collected daily from the Cotton Region Shelter, temperature records were supplied with data logged by an iButton Thermochron in the Cotton Region Shelter or by the UV-B temperature sensor in the UV-B field. Temperature values recorded in the UV-B field were multiplied by a correction factor (.882 for max temps and .847 for min temps) calculated by BVK in June 2016. 
+
+Belfort rain gauge data refer to precipitation in the previous 24 hours from the time of collection (08:00). ETI rain gauge data refer to 24 hour precipitation from midnight to midnight.
+
+I (and Bob before me) collected all these data in one sheet for convenience. I feel increasingly that at least lake level and evaporation should be separate data sets. Lake level is a good one. My preference would actually be to make evaporation available by request. The evaporation data aren't collected according to standard methods. I think Bob started collecting evaporation data mostly based on his curiosity about the Douglas Lake water budget. It's an interesting and valuable data set, but it probably should come with some caveats.
+
+I don't know if I mentioned it, but a more complete precipitation record is available here: http://nadp.slh.wisc.edu/siteOps/ppt/default.aspx When the ETI rain gauge came on line, they started recording precipitation at 15 minute intervals. We're site MI09.
+
+1. The different colors represent different instruments and sometimes locations as data sources. Red means that temperatures were collected from an iButton. Yellow means temperatures were calculated from the thermometer in the UV-B installation. As I mentioned to Jason, there are instances where temp data came from other sources prior to 2017, but the colors weren't copied when data were entered/digitized. In some cases, the notes may indicate alternative data sources. I think this mostly applies to temperature.
+
+2. Most of those data were just of personal interest for a period of time. RH, for example, is relative humidity; I was also recording wind direction (e.g. "NNW") and pressure ("Pres"). I just collected most of those data from Wunderground, until the buoy was deployed.  I would say those data should be excluded from the data set or remain in the notes. 
+
+Also, the evap pan data are from an evaporation pan. The number is inches.
+
+
