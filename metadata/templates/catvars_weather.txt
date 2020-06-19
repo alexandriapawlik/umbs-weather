@@ -18,18 +18,18 @@ Cloud_Type	CIRRUS	Primarily cirrus (Ci) clouds observed.
 Cloud_Type	CIRROSTRATUS	Primarily cirrostratus (Cs) clouds observed.
 Cloud_Type	ALTOCUMULUS	Primarily altocumulus (Ac) clouds observed.
 Cloud_Type	ALTOSTRATUS	Primarily altostratus (As) clouds observed.
-Flag_Max_Temperature	R	Data value potentially out-of-range.
+Flag_Max_Temperature	R	Data entry error. Value has been replaced by historic data from the Pellston Regional Airport of Emmet County from wunderground.com.
 Flag_Max_Temperature	I	Possible instrument change. See notes field.
-Flag_Min_Temperature	R	Data value potentially out-of-range.
+Flag_Min_Temperature	R	Data entry error. Value has been replaced by historic data from the Pellston Regional Airport of Emmet County from wunderground.com.
 Flag_Min_Temperature	I	Possible instrument change. See notes field.
-Flag_Current_Temperature	R	Data value potentially out-of-range.
+Flag_Current_Temperature	R	Data entry error. Value has been replaced by historic data from the Pellston Regional Airport of Emmet County from wunderground.com.
 Flag_Current_Temperature	I	Possible instrument change. See notes field.
 Flag_Precipitation_Belfort	T	Trace amounts of precipitation measured.
-Flag_Precipitation_ETI	R	Data value potentially out-of-range.
+Flag_Precipitation_ETI	R	Data entry error. Data value potentially out-of-range.
 Flag_Precipitation_ETI	T	Trace amounts of precipitation measured.
 Flag_Precipitation_ETI	I	Possible instrument change. See notes field.
 Flag_Snowfall	T	Trace amounts of precipitation measured.
 Flag_Snowfall	I	Possible instrument change. See notes field.
 Flag_Snow_On_Ground	T	Trace amounts of precipitation measured.
-Flag_Snow_On_Ground	R	Data value potentially out-of-range.
+Flag_Snow_On_Ground	R	Data entry error. Data value potentially out-of-range.
 Flag_Snow_On_Ground	I	Possible instrument change. See notes field.

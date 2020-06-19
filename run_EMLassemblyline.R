@@ -10,7 +10,7 @@ library(EMLassemblyline)
 # Define paths for your metadata templates, data, and EML
 
 path_templates <- "~/Documents/Research/EDI/UMBS_Weather_Data/metadata/templates"
-path_data <- "~/Documents/Research/EDI/UMBS_Weather_Data/data_objects"
+path_data <- "~/Documents/Research/EDI/UMBS_Weather_Data"
 path_eml <- "~/Documents/Research/EDI/UMBS_Weather_Data/metadata/eml"
 
 # Create metadata templates ---------------------------------------------------
@@ -73,21 +73,29 @@ EMLassemblyline::template_taxonomic_coverage(
 # Once all your metadata templates are complete call this function to create 
 # the EML.
 
+E <- "-84.669381"
+N <- "45.561608"
+S <- "45.558932"
+W <- "-84.679608"
+
+Pid <- "edi.549.1"
+Sid <- "edi.25.2"
+
 EMLassemblyline::make_eml(
   path = path_templates,
   data.path = path_data,
   eml.path = path_eml, 
-  dataset.title = "weather.csv", 
-  temporal.coverage = c("YYYY-MM-DD", "YYYY-MM-DD"), 
-  geographic.description = "", 
-  geographic.coordinates = c("N", "E", "S", "W"), 
-  maintenance.description = "", 
-  data.table = c(""), 
-  data.table.name = c(""),
-  data.table.description = c(""),
-  other.entity = c(""),
-  other.entity.name = c(""),
-  other.entity.description = c(""),
-  user.id = "",
-  user.domain = "", 
-  package.id = "")
+  dataset.title = "University of Michigan Biological Station Weather Observations 1980 – Present", 
+  temporal.coverage = c("1980-01-01", "2020-04-30"), 
+  geographic.description = "University of Michigan Biological Station, Douglas Lake, MI", 
+  geographic.coordinates = c(N, E, S, W), 
+  maintenance.description = "ongoing", 
+  data.table = "weather.csv", 
+  data.table.name = "UMBS Weather 1980-Present",
+  data.table.description = "Daily temperature, precipitation, and cloud cover data",
+  other.entity = c("UMBS_Weather_Cleaning.Rmd", "src.zip"),
+  other.entity.name = c("R script for data formatting and cleaning", "Source data for R script"),
+  other.entity.description = c("R script for data formatting and cleaning", "Source data for R script"),
+  user.id = "apawlik",
+  user.domain = "EDI", 
+  package.id = Sid)

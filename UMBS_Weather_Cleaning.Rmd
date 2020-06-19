@@ -20,8 +20,8 @@ options(stringsAsFactors = FALSE)
 
 Read CSV into data frames (older data only)
 ```{r}
-weather_78_89 <- read.csv("raw/Daily_Weather_Raw_1978-1989.csv")
-weather_90_16 <- read.csv("raw/Daily_Weather_Raw_1990-2016.csv")
+weather_78_89 <- read.csv("src/Daily_Weather_Raw_1978-1989.csv")
+weather_90_16 <- read.csv("src/Daily_Weather_Raw_1990-2016.csv")
 ```
 
 Remove unwanted columns from older data
@@ -374,6 +374,19 @@ weather <- weather %>%
   mutate(Flag_Min_Temperature = ifelse((Min_Temperature > 120) | (Min_Temperature < -40), "R", NA)) %>%
   mutate(Flag_Current_Temperature = ifelse((Current_Temperature > 120) | (Current_Temperature < -40), "R", NA))
 
+# replace out-if-bounds temperatures with historic temperatures taken from https://www.wunderground.com/history for 
+weather %>% filter(Flag_Max_Temperature == "R")
+weather$Max_Temperature[weather$Max_Temperature == 725] <- 82
+weather$Max_Temperature[weather$Max_Temperature == 6261] <- 77
+
+weather %>% filter(Flag_Min_Temperature == "R")
+weather$Min_Temperature[weather$Min_Temperature == 7261] <- 72
+
+weather %>% filter(Flag_Current_Temperature == "R")
+weather$Min_Temperature[weather$Current_Temperature == 354] <- 35
+weather$Min_Temperature[weather$Current_Temperature == 598] <- 65
+weather$Min_Temperature[weather$Current_Temperature == 239] <- 37
+
 # flag other out-of-bounds measurements
 weather <- weather %>% 
   mutate(Flag_Wind_Speed = ifelse(Wind_Speed > 100, "R", NA))
@@ -386,9 +399,11 @@ mask <- weather$Snow_On_Ground > 100
 weather <- weather %>% 
   mutate(Flag_Snow_On_Ground = replace(Flag_Snow_On_Ground, mask, "R"))
 
-# flag possible instrumentation changes
+# make Notes consistent, remove commas to avoid confusion in CSV file
 weather$Notes <- toupper(weather$Notes)
+weather$Notes <- gsub(",", ".", weather$Notes)
 
+# flag possible instrumentation changes
 mask <- grepl("UV-B", weather$Notes, ignore.case = TRUE)
 weather <- weather %>% 
   mutate(Flag_Max_Temperature = replace(Flag_Max_Temperature, mask, "I")) %>% 
@@ -442,5 +457,5 @@ weather <- weather %>%
 weather <- weather %>% 
   arrange(Date)
 
-write_csv(weather, "data_objects/weather.csv")
+write.csv(weather, file = "weather.csv", eol = "\r\n", row.names = FALSE)
 ```
