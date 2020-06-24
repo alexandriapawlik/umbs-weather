@@ -1,88 +1,3 @@
-5/28/2020
-
-In this folder you will find data tables containing weather observations from the University of Michigan Biological Station. These data tables span two resident biologist (Robert Vande Kopple - BVK, and Adam Schbel) and 40 plus years of observation. 
-
-Goals
-0. Review data tables and decide upon a single table structure, variable names, and data types (character or numeric for temperature for example)
-1. Rename column headers (variable names) in all tables and format column data types.
-2. Merge tables into one master table
-3. QA/QC observations (are values within expected range?, are values the correct type (temp column has text saying why the measurement is not correct), etc.)
-4. Collect metadata from A. Schubel, J. Tallant, and BVK
-5. Run through EML assembly line
-6. Publish to EDI
-
-
-ORGANIZATION
-
-was there a methods change between these 3 files?
-	if not, subset based on years?
-
-1 publication
-
-if second publication:
-- gap filling
-- aggregation
-
-DONT INCLUDE UNITS IN NAMES
-
-----------------
-
-90-16_spreadsheet_edits
-
-two cloud types
-1430
-865
-869
-
-data to be fixed
-1552
-1430
-1811
-
-check notes for cloud types
-
-----------------
-
-ASK ADAM
-----------------
-
-PLAN
-
-1. In Excel:
-- move notes from excel margins to notes column 17-present
-
-2. In R:
-- import data
-- remove extra rows and columns
-- fix date and time data
-- change variable names and aggregate tables
-- quality assurance:
-	- remove white space
-	- make sure all missing values are NA
-	- check for characters in number columns
-		- change T to trace column (or 0)
-	- make cloud types consistent and replace with full types
-		- check for invalid cloud types and replace with NA
-	- add flag column for bounds checking
-		- standardize flags across datasets
-		- temp: check simple reasonable range
-		- flag for potential instrument change
-	- check number precision based on metadata
-- export as CSV
-
-3. Metadata
-- compile metadata sources
-	- check that all notes from Adam via email have been factored in 
-- generate EML
-
-----------------
-
-TO DO
-
-sync R script with plan
-sync metadata file with R script
-
-----------------
 
 NOTES FROM ADAM
 
@@ -94,9 +9,9 @@ I (and Bob before me) collected all these data in one sheet for convenience. I f
 
 I don't know if I mentioned it, but a more complete precipitation record is available here: http://nadp.slh.wisc.edu/siteOps/ppt/default.aspx When the ETI rain gauge came on line, they started recording precipitation at 15 minute intervals. We're site MI09.
 
-1. The different colors represent different instruments and sometimes locations as data sources. Red means that temperatures were collected from an iButton. Yellow means temperatures were calculated from the thermometer in the UV-B installation. As I mentioned to Jason, there are instances where temp data came from other sources prior to 2017, but the colors weren't copied when data were entered/digitized. In some cases, the notes may indicate alternative data sources. I think this mostly applies to temperature.
+The different colors represent different instruments and sometimes locations as data sources. Red means that temperatures were collected from an iButton. Yellow means temperatures were calculated from the thermometer in the UV-B installation. As I mentioned to Jason, there are instances where temp data came from other sources prior to 2017, but the colors weren't copied when data were entered/digitized. In some cases, the notes may indicate alternative data sources. I think this mostly applies to temperature.
 
-2. Most of those data were just of personal interest for a period of time. RH, for example, is relative humidity; I was also recording wind direction (e.g. "NNW") and pressure ("Pres"). I just collected most of those data from Wunderground, until the buoy was deployed.  I would say those data should be excluded from the data set or remain in the notes. 
+Most of those data were just of personal interest for a period of time. RH, for example, is relative humidity; I was also recording wind direction (e.g. "NNW") and pressure ("Pres"). I just collected most of those data from Wunderground, until the buoy was deployed.  I would say those data should be excluded from the data set or remain in the notes. 
 
 Also, the evap pan data are from an evaporation pan. The number is inches.
 

@@ -1,0 +1,101 @@
+---
+title: "Lake Level Cleaning"
+output: html_notebook
+author: apawlik
+---
+
+Required packages
+```{r}
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(xlsx)
+library(tibble)
+library(dataMaid)
+options(stringsAsFactors = FALSE)
+```
+
+Read Excel files into data frames (newer data only)
+```{r}
+# 32 as of May 2020, excludes notes sheet
+num_sheets <- 32
+
+# column types for imported data
+columnTypes <- c("Date")
+
+# make a list of monthly sheets beginning with oldest 2 months (so month indices won't change)
+l1 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets, colClasses = columnTypes, endRow = 32)
+l2 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets - 1, colClasses = columnTypes, endRow = 32)
+weather_17_pres <- list(l1, l2)
+for (i in (num_sheets - 2):2) {  # exclude current month (incomplete data), so last month is last in list
+  l <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", i, colClasses = columnTypes, endRow = 32)
+  weather_17_pres <- append(weather_17_pres, list(l))
+}
+
+num_months <- num_sheets - 1  # exclude current month (incomplete data)
+```
+
+Remove unwanted rows and columns from newer data
+```{r}
+# check that each has correct number of rows and columns before combining
+num_cols <- 17  # last column in excel sheet is Q
+
+# remove columns outside num_cols
+for (i in 1:num_months) {
+  # oct2018 (sheet 13) contains an extra column (13), remove it
+  if (i == 13) {  
+    weather_17_pres[[i]] <- weather_17_pres[[i]][c(1:12, 14:(num_cols + 1))]
+  } else {
+    weather_17_pres[[i]] <- weather_17_pres[[i]][1:num_cols]
+  }
+}
+
+# remove rows beyond number of days in that month
+for (i in 1:num_months) {
+  n <- days_in_month(as.Date(weather_17_pres[[i]][10, 1], "%Y-%m-%d"))
+  names(n) <- NULL  # convert from named int to just int
+  weather_17_pres[[i]] <- weather_17_pres[[i]][1:n, ]
+}
+```
+
+Fix data types of newer data
+```{r}
+# convert datetimes from Time column back to just times
+for (i in 1:num_months) {
+  weather_17_pres[[i]]$Time <- format(strptime(weather_17_pres[[i]]$Time, "%Y-%m-%d %H:%M:%S"), "%H:%M")
+  # print(weather_17_pres[[i]][2])
+}
+```
+
+Compile newer data into single data frame
+```{r}
+# combine elements of list vertically
+weather_newer <- rbind(weather_17_pres[[1]], weather_17_pres[[2]])
+for (i in 3:num_months) {
+  weather_newer <- rbind(weather_newer, weather_17_pres[[i]])
+}
+
+# glimpse(weather_newer)
+```
+
+Extract lake level column
+```{r}
+names(weather_newer)
+weather_newer_t <- as_tibble(lapply(weather_newer, trimws))
+lake <- weather_newer_t %>% 
+  select(Date, Time, Lake.Level) %>% 
+  rename(Lake_Level = Lake.Level) %>% 
+  filter(!is.na(Lake_Level)) %>% 
+  mutate(Lake_Level = as.numeric(Lake_Level))
+glimpse(lake)
+```
+
+Clean and export
+```{r}
+min(lake$Lake_Level)
+max(lake$Lake_Level)
+
+write.csv(lake, file = "lake_level.csv", eol = "\r\n", row.names = FALSE)
+```
+
+
