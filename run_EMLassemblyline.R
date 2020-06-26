@@ -78,7 +78,7 @@ N <- "45.561608"
 S <- "45.558932"
 W <- "-84.679608"
 
-Pid <- "edi.549.1"
+Pid <- "edi.549.2"
 Sid <- "edi.25.2"
 
 EMLassemblyline::make_eml(
@@ -98,4 +98,4 @@ EMLassemblyline::make_eml(
   other.entity.description = c("R script for data formatting and cleaning", "Source data for R script"),
   user.id = "apawlik",
   user.domain = "EDI", 
-  package.id = Sid)
+  package.id = Pid)
