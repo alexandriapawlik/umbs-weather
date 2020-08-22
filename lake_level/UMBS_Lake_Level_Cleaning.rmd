@@ -13,6 +13,8 @@ library(xlsx)
 library(tibble)
 library(dataMaid)
 options(stringsAsFactors = FALSE)
+
+weather_17_pres_path <- "../src/Weather_Edit_2017-Present.xlsx"
 ```
 
 Read Excel files into data frames (newer data only)
@@ -24,11 +26,11 @@ num_sheets <- 32
 columnTypes <- c("Date")
 
 # make a list of monthly sheets beginning with oldest 2 months (so month indices won't change)
-l1 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets, colClasses = columnTypes, endRow = 32)
-l2 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets - 1, colClasses = columnTypes, endRow = 32)
+l1 <- read.xlsx(weather_17_pres_path, num_sheets, colClasses = columnTypes, endRow = 32)
+l2 <- read.xlsx(weather_17_pres_path, num_sheets - 1, colClasses = columnTypes, endRow = 32)
 weather_17_pres <- list(l1, l2)
 for (i in (num_sheets - 2):2) {  # exclude current month (incomplete data), so last month is last in list
-  l <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", i, colClasses = columnTypes, endRow = 32)
+  l <- read.xlsx(weather_17_pres_path, i, colClasses = columnTypes, endRow = 32)
   weather_17_pres <- append(weather_17_pres, list(l))
 }
 

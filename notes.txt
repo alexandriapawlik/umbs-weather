@@ -14,5 +14,3 @@ The different colors represent different instruments and sometimes locations as 
 Most of those data were just of personal interest for a period of time. RH, for example, is relative humidity; I was also recording wind direction (e.g. "NNW") and pressure ("Pres"). I just collected most of those data from Wunderground, until the buoy was deployed.  I would say those data should be excluded from the data set or remain in the notes. 
 
 Also, the evap pan data are from an evaporation pan. The number is inches.
-
-

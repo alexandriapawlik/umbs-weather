@@ -1,6 +1,6 @@
+*.html
+*.Rhistory
+*.Rproj
+*.Rapp.history
+
 .Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.html
-.Rproj

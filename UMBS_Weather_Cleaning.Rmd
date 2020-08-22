@@ -13,6 +13,10 @@ library(xlsx)
 library(tibble)
 library(dataMaid)
 options(stringsAsFactors = FALSE)
+
+weather_78_89_path <- "src/Daily_Weather_Raw_1978-1989.csv"
+weather_90_16_path <- "src/Daily_Weather_Raw_1990-2016.csv"
+weather_17_pres_path <- "src/Weather_Edit_2017-Present.xlsx"
 ```
 
 
@@ -20,8 +24,8 @@ options(stringsAsFactors = FALSE)
 
 Read CSV into data frames (older data only)
 ```{r}
-weather_78_89 <- read.csv("src/Daily_Weather_Raw_1978-1989.csv")
-weather_90_16 <- read.csv("src/Daily_Weather_Raw_1990-2016.csv")
+weather_78_89 <- read.csv(weather_78_89_path)
+weather_90_16 <- read.csv(weather_90_16_path)
 ```
 
 Remove unwanted columns from older data
@@ -64,11 +68,11 @@ num_sheets <- 32
 columnTypes <- c("Date")
 
 # make a list of monthly sheets beginning with oldest 2 months (so month indices won't change)
-l1 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets, colClasses = columnTypes, endRow = 32)
-l2 <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", num_sheets - 1, colClasses = columnTypes, endRow = 32)
+l1 <- read.xlsx(weather_17_pres_path, num_sheets, colClasses = columnTypes, endRow = 32)
+l2 <- read.xlsx(weather_17_pres_path, num_sheets - 1, colClasses = columnTypes, endRow = 32)
 weather_17_pres <- list(l1, l2)
 for (i in (num_sheets - 2):2) {  # exclude current month (incomplete data), so last month is last in list
-  l <- read.xlsx("src/Weather_Edit_2017-Present.xlsx", i, colClasses = columnTypes, endRow = 32)
+  l <- read.xlsx(weather_17_pres_path, i, colClasses = columnTypes, endRow = 32)
   weather_17_pres <- append(weather_17_pres, list(l))
 }
 
@@ -372,7 +376,7 @@ max(weather$Date)
 weather <- weather %>% 
   mutate(Flag_Max_Temperature = ifelse((Max_Temperature > 120) | (Max_Temperature < -20), "R", NA)) %>% 
   mutate(Flag_Min_Temperature = ifelse((Min_Temperature > 120) | (Min_Temperature < -40), "R", NA)) %>%
-  mutate(Flag_Current_Temperature = ifelse((Current_Temperature > 120) | (Current_Temperature < -40), "R", NA))
+  mutate(Flag_Current_Temperature = ifelse((Current_Temperature > 100) | (Current_Temperature < -40), "R", NA))
 
 # replace out-if-bounds temperatures with historic temperatures taken from https://www.wunderground.com/history for 
 weather %>% filter(Flag_Max_Temperature == "R")
@@ -383,9 +387,10 @@ weather %>% filter(Flag_Min_Temperature == "R")
 weather$Min_Temperature[weather$Min_Temperature == 7261] <- 72
 
 weather %>% filter(Flag_Current_Temperature == "R")
-weather$Min_Temperature[weather$Current_Temperature == 354] <- 35
-weather$Min_Temperature[weather$Current_Temperature == 598] <- 65
-weather$Min_Temperature[weather$Current_Temperature == 239] <- 37
+weather$Current_Temperature[weather$Current_Temperature == 354] <- 35
+weather$Current_Temperature[weather$Current_Temperature == 598] <- 65
+weather$Current_Temperature[weather$Current_Temperature == 239] <- 37
+weather$Current_Temperature[weather$Current_Temperature == 116] <- -20
 
 # flag other out-of-bounds measurements
 weather <- weather %>% 
@@ -438,7 +443,7 @@ weather <- weather %>%
 weather$Precipitation_Belfort <- round(weather$Precipitation_Belfort, digits = 2)
 weather$Precipitation_ETI <- round(weather$Precipitation_ETI, digits = 2)
 weather$Snowfall <- round(weather$Snowfall, digits = 2)
-weather$Snow_On_Ground <- round(weather$Snow_On_Ground, digits = 1)
+weather$Snow_On_Ground <- round(weather$Snow_On_Ground, digits = 0)
 weather$Wind_Speed <- round(weather$Wind_Speed, digits = 6)
 ```
 

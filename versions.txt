@@ -1,0 +1,20 @@
+
+edi.549.1 published, no release
+
+- removed OOR values from current temp
+- added path variables
+
+edi.549.2 published, released
+
+- changed NA description for precipitation, snow, and cloud type
+- fixed precision on snow on ground
+- removed symbol in name
+
+edi.549.3 published, released, transfered to umbiologicalstat
+
+-------------------
+
+TO DO:
+- talk to Adam about precip NA vs 0
+- add May and June
+- make nb more segmented and clear

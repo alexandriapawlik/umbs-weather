@@ -78,20 +78,20 @@ N <- "45.561608"
 S <- "45.558932"
 W <- "-84.679608"
 
-Pid <- "edi.549.2"
-Sid <- "edi.25.2"
+Pid <- "edi.549.3"
+Sid <- "edi.65.1"
 
 EMLassemblyline::make_eml(
   path = path_templates,
   data.path = path_data,
   eml.path = path_eml, 
-  dataset.title = "University of Michigan Biological Station Weather Observations 1980 – Present", 
+  dataset.title = "University of Michigan Biological Station Weather Observations 1980 to Present", 
   temporal.coverage = c("1980-01-01", "2020-04-30"), 
   geographic.description = "University of Michigan Biological Station, Douglas Lake, MI", 
   geographic.coordinates = c(N, E, S, W), 
   maintenance.description = "ongoing", 
   data.table = "weather.csv", 
-  data.table.name = "UMBS Weather 1980-Present",
+  data.table.name = "UMBS Weather 1980 to Present",
   data.table.description = "Daily temperature, precipitation, and cloud cover data",
   other.entity = c("UMBS_Weather_Cleaning.Rmd", "src.zip"),
   other.entity.name = c("R script for data formatting and cleaning", "Source data for R script"),
