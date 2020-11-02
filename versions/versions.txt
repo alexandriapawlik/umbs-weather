@@ -10,7 +10,8 @@ edi.549.2 published, released
 - fixed precision on snow on ground
 - removed symbol in name
 
-edi.549.3 published, released, transfered to umbiologicalstat
+edi.549.3 published, released
+edi.549.4 transfered to umbiologicalstat
 
 -------------------
 

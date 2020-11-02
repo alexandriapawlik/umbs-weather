@@ -1,0 +1,676 @@
+
+  
+    
+      uid=EDI,o=EDI,dc=edirepository,dc=org
+      all
+    
+    
+      uid=umbiologicalstat,o=EDI,dc=edirepository,dc=org
+      all
+    
+    
+      uid=apawlik,o=EDI,dc=edirepository,dc=org
+      all
+    
+    
+      public
+      read
+    
+  
+  
+    doi:10.6073/pasta/ef591b27f6336849868626e48ef588ee
+    University of Michigan Biological Station Weather Observations 1980 to Present
+    
+      Robert Vande Kopple
+      University of Michigan Biological Station
+      bvk@umich.edu
+    
+    
+      Jason Tallant
+      University of Michigan Biological Station
+      jtallant@umich.edu
+      https://orcid.org/0000-0003-4790-8772
+      Data Manager
+    
+    
+      Sherry Webster
+      University of Michigan Biological Station
+      swebs@umich.edu
+      Data Entry
+    
+    
+      Alexandria Pawlik
+      University of Michigan
+      apawlik@umich.edu
+      https://orcid.org/0000-0001-7806-8206
+      Data Curator
+    
+    2020-08-22
+    
+      This data set includes daily year-round weather measurements and observations recorded at the University of Michigan Biological Station (UMBS) from 1980-present. Data primarily serves the purpose of benefitting UMBS researchers needing access to weather data as a confounding variable. Parameters include maximum and minimum temperatures, precipitation, snowfall, snowpack, and estimated cloud cover and type recorded daily at approximately 08:00. Maximum and minimum temperatures were measured at the Biological Station campus with National Weather Service liquid-in-glass thermometers housed in a Weather Service (a.k.a., Cotton Region) shelter located on State Road. Precipitation was measured with either a Belfort Rainfall Transmitter 5915 or an ETI NOAH IV Total Precipitation Gauge in the “UV Field” located immediately northwest of the Biological Station campus. Snowfall and snowpack were also measured in the UV Field on snowboards using National Weather Service according to National Weather Service snow measurement guidelines. Cloud cover was estimated in oktas and classified into one of the ten basic cloud types.
+    
+    
+      Air temperature
+      Snow accumulation
+      Rain
+      Precipitation
+      Weather
+      Snow
+      LTER
+    
+    
+      University of Michigan Biological Station
+    
+    
+      This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data (\"Data User\" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available \"as is.\" The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.
+
+    
+    
+      
+        University of Michigan Biological Station, Douglas Lake, MI
+        
+          -84.679608
+          -84.669381
+          45.561608
+          45.558932
+        
+      
+      
+        
+          
+            1980-01-01
+          
+          
+            2020-04-30
+          
+        
+      
+    
+    
+      ongoing
+    
+    
+      Jason Tallant
+      University of Michigan Biological Station
+      jtallant@umich.edu
+      https://orcid.org/0000-0003-4790-8772
+    
+    
+      
+        
+          Maximum and minimum temperatures were measured at the Biological Station campus with National Weather Service liquid-in-glass thermometers housed in a Weather Service (a.k.a., Cotton Region) shelter located on State Road. Measurements were recorded to the nearest degree Fahrenheit. In instances where temperatures were not collected daily from the Cotton Region Shelter, temperature records were supplied with data logged by an iButton Thermochron in the Cotton Region Shelter or by the UV-B temperature sensor in the UV-B field. Temperature values recorded in the UV-B field were multiplied by a correction factor (.882 for max temps and .847 for min temps) calculated by BVK in June 2016. Precipitation was measured with either a Belfort Rainfall Transmitter 5915 or an ETI NOAH IV Total Precipitation Gauge in the “UV Field” located immediately northwest of the Biological Station campus. Measurements from the Belfort were recorded on charts and transcribed to the nearest hundredth inch. Measurements from the ETI were logged in a Campbell Scientific CR1000 data logger. Snowfall and snowpack were also measured in the UV Field on snowboards using National Weather Service according to National Weather Service snow measurement guidelines (https://www.weather.gov/media/coop/Snow_Measurement_Guidelines-2014.pdf). Cloud cover was estimated in oktas and classified into one of the ten basic cloud types.
+        
+      
+    
+    
+      No project title to report
+      
+        Adam Schubel
+        University of Michigan Biological Station
+        aschubel@umich.edu
+        Principal Investigator
+      
+      No funding to report
+    
+    
+      UMBS Weather 1980 to Present
+      Daily temperature, precipitation, and cloud cover data
+      
+        weather.csv
+        1105813
+        2f522f99cbaaa8122317dfc82a85bb77
+        
+          
+            1
+            \r
+            column
+            
+              ,
+            
+          
+        
+        
+          
+            https://pasta.lternet.edu/package/data/eml/edi/549/4/3b45974606d95ea4e9446dea864b7b7e
+          
+        
+      
+      
+        
+          Date
+          Date on which data collection is occurring.
+          date
+          
+            
+              YYYY-MM-DD
+              
+            
+          
+        
+        
+          Time
+          Time at which data collection began, recorded in 24-hour time. Time was not recorded prior to 2017-10-01.
+          date
+          
+            
+              hh:mm
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date.
+          
+        
+        
+          Max_Temperature
+          Maximum air temperature reached over the previous 24 hours. Measured by National Weather Service liquid-in-glass thermometers at Weather Service shelter to the nearest degree. When specified in flags and notes, temperature records were supplied with data logged by an iButton Thermochron in the Weather Service Shelter, by the UV-B temperature sensor in the UV Field, or using historic temperature data from the Pellston Regional Airport of Emmet County. Temperature values recorded in the UV Field were multiplied by a correction factor (.882 for max temps and .847 for min temps) calculated by BVK in June 2016.
+          float
+          
+            
+              
+                fahrenheit
+              
+              
+                integer
+                
+                  -6
+                  97
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date.
+          
+        
+        
+          Min_Temperature
+          Minimum air temperature reached over the last 24 hours. Measured by National Weather Service liquid-in-glass thermometers at Weather Service shelter to the nearest degree. When specified in flags and notes, temperature records were supplied with data logged by an iButton Thermochron in the Weather Service Shelter, by the UV-B temperature sensor in the UV Field, or using historic temperature data from the Pellston Regional Airport of Emmet County. Temperature values recorded in the UV Field were multiplied by a correction factor (.882 for max temps and .847 for min temps) calculated by BVK in June 2016.
+          float
+          
+            
+              
+                fahrenheit
+              
+              
+                integer
+                
+                  -31
+                  78
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date.
+          
+        
+        
+          Current_Temperature
+          Air temperature at time of observation. Measured by National Weather Service liquid-in-glass thermometers at Weather Service shelter to the nearest degree. When specified in flags and notes, temperature records were supplied with data logged by an iButton Thermochron in the Weather Service Shelter, by the UV-B temperature sensor in the UV Field, or using historic temperature data from the Pellston Regional Airport of Emmet County. Temperature values recorded in the UV Field were multiplied by a correction factor (.882 for max temps and .847 for min temps) calculated by BVK in June 2016.
+          float
+          
+            
+              
+                fahrenheit
+              
+              
+                integer
+                
+                  -30
+                  83
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date.
+          
+        
+        
+          Precipitation_Belfort
+          Precipitation from the previous 24 hours. Measured to the nearest 1/100 inch with a Belfort Rainfall Transmitter 5915 in the UV Field located immediately northwest of the Biological Station campus. Measurements were recorded on charts and transcribed to the nearest hundredth inch.
+          float
+          
+            
+              
+                inch
+              
+              
+                real
+                
+                  0
+                  48
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date or zero rain was measured on this date.
+          
+        
+        
+          Precipitation_ETI
+          Precipitation from between 12:00 and 11:59 on this calendar day. Measured to the nearest 1/100 inch with an ETI NOAH IV Total Precipitation Gauge in the UV Field located immediately northwest of the Biological Station campus. Measurements were logged in a Campbell Scientific CR1000 data logger.
+          float
+          
+            
+              
+                inch
+              
+              
+                real
+                
+                  0
+                  117
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date or zero rain was measured on this date.
+          
+        
+        
+          Snowfall
+          Snow from the previous 24 hours. Measured with a ruler to the nearest 1/4 inch until 2019-05-01, and measured to the nearest 1/10 inch from 2019-05-01 until present. Measured in the UV Field located immediately northwest of the Biological Station campus on snowboards using National Weather Service according to National Weather Service snow measurement guidelines.
+          float
+          
+            
+              
+                inch
+              
+              
+                real
+                
+                  0
+                  47
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date or zero snow was measured on this date.
+          
+        
+        
+          Snow_On_Ground
+          Accumulated snow depth. Measured with a ruler to the nearest inch. Measured in the UV Field located immediately northwest of the Biological Station campus on snowboards using National Weather Service according to National Weather Service snow measurement guidelines.
+          float
+          
+            
+              
+                inch
+              
+              
+                whole
+                
+                  0
+                  136
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date or zero snow was measured on this date.
+          
+        
+        
+          Sky_Cover
+          Amount of cloud cover as observed from Weather Service shelter. Described in oktas.
+          string
+          
+            
+              
+                
+                  
+                    8
+                    8 oktas. Full cloud cover with no breaks.
+                  
+                  
+                    0
+                    0 oktas. Complete absence of clouds.
+                  
+                  
+                    1
+                    1 okta. 1 eighth or less of the sky dome covered by clouds, but not an absence of clouds..
+                  
+                  
+                    5
+                    5 oktas. 5 eighths of the sky dome covered by clouds.
+                  
+                  
+                    6
+                    6 oktas. 6 eighths of the sky dome covered by clouds.
+                  
+                  
+                    7
+                    7 oktas. 7 eighths or more of the sky dome covered by clouds, but not full cloud cover.
+                  
+                  
+                    4
+                    4 oktas. Half of the sky dome covered by clouds.
+                  
+                  
+                    2
+                    2 oktas. 2 eighths of the sky dome covered by clouds.
+                  
+                  
+                    3
+                    3 oktas. 3 eights of the sky dome covered by clouds.
+                  
+                  
+                    9
+                    9 oktas. Sky obscured by fog or other meteorological phenomena.
+                  
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date.
+          
+        
+        
+          Cloud_Type
+          Cloud type observed from Weather Service shelter, classified in one of the 10 basic cloud types.
+          string
+          
+            
+              
+                
+                  
+                    STRATUS
+                    Primarily stratus (St) clouds observed.
+                  
+                  
+                    CUMULUS
+                    Primarily cumulus (Cu) clouds observed.
+                  
+                  
+                    NIMBOSTRATUS
+                    Primarily nimbostratus (Ns) clouds observed.
+                  
+                  
+                    CIRROCUMULUS
+                    Primarily cirrocumulus (Cc) clouds observed.
+                  
+                  
+                    STRATOCUMULUS
+                    Primarily stratocumulus (Sc) clouds observed.
+                  
+                  
+                    CIRRUS
+                    Primarily cirrus (Ci) clouds observed.
+                  
+                  
+                    CIRROSTRATUS
+                    Primarily cirrostratus (Cs) clouds observed.
+                  
+                  
+                    ALTOCUMULUS
+                    Primarily altocumulus (Ac) clouds observed.
+                  
+                  
+                    ALTOSTRATUS
+                    Primarily altostratus (As) clouds observed.
+                  
+                
+              
+            
+          
+          
+            NA
+            Attribute was not collected on this date or no clouds were observed on this date.
+          
+        
+        
+          Notes
+          Other notes about weather conditions. Includes extraneous weather and instrumentation changes and damage.
+          string
+          
+            
+              
+                
+                  Other notes about weather conditions. Includes extraneous weather and instrumentation changes and damage.
+                
+              
+            
+          
+          
+            NA
+            No extra notes were taken on this date.
+          
+        
+        
+          Flag_Max_Temperature
+          Flags relating to Max_Temperature data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    R
+                    Data entry error. Value has been replaced by historic data from the Pellston Regional Airport of Emmet County from wunderground.com.
+                  
+                  
+                    I
+                    Possible instrument change. See notes field.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+        
+          Flag_Min_Temperature
+          Flags relating to Min_Temperature data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    R
+                    Data entry error. Value has been replaced by historic data from the Pellston Regional Airport of Emmet County from wunderground.com.
+                  
+                  
+                    I
+                    Possible instrument change. See notes field.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+        
+          Flag_Current_Temperature
+          Flags relating to Current_Temperature data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    R
+                    Data entry error. Value has been replaced by historic data from the Pellston Regional Airport of Emmet County from wunderground.com.
+                  
+                  
+                    I
+                    Possible instrument change. See notes field.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+        
+          Flag_Precipitation_Belfort
+          Flags relating to Precipitation_Belfort data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    T
+                    Trace amounts of precipitation measured.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+        
+          Flag_Precipitation_ETI
+          Flags relating to Precipitation_ETI data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    R
+                    Data entry error. Data value potentially out-of-range.
+                  
+                  
+                    T
+                    Trace amounts of precipitation measured.
+                  
+                  
+                    I
+                    Possible instrument change. See notes field.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+        
+          Flag_Snowfall
+          Flags relating to Snowfall data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    T
+                    Trace amounts of precipitation measured.
+                  
+                  
+                    I
+                    Possible instrument change. See notes field.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+        
+          Flag_Snow_On_Ground
+          Flags relating to Snow_On_Ground data field for this observation.
+          string
+          
+            
+              
+                
+                  
+                    T
+                    Trace amounts of precipitation measured.
+                  
+                  
+                    R
+                    Data entry error. Data value potentially out-of-range.
+                  
+                  
+                    I
+                    Possible instrument change. See notes field.
+                  
+                
+              
+            
+          
+          
+            NA
+            No flags exist for corresponding data.
+          
+        
+      
+      14458
+    
+    
+      R script for data formatting and cleaning
+      R script for data formatting and cleaning
+      
+        UMBS_Weather_Cleaning.Rmd
+        15796
+        6b6fe7d11c2dbbc1b5cb5800415aa711
+        
+          
+            text/x-markdown
+          
+        
+        
+          
+            https://pasta.lternet.edu/package/data/eml/edi/549/4/32395d042ff51a7e573b5a0860d3864f
+          
+        
+      
+      unknown
+    
+    
+      Source data for R script
+      Source data for R script
+      
+        src.zip
+        316056
+        647249d8d6bb885f9b7dad28e56f2129
+        
+          
+            application/zip
+          
+        
+        
+          
+            https://pasta.lternet.edu/package/data/eml/edi/549/4/29f6fad706d133c4f65c5e6d5dc99dd8
+          
+        
+      
+      unknown
+    
+  

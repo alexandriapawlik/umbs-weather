@@ -1,0 +1,7 @@
+Manifest file for edi.549.4-4c9184f37cff01bcdc32dc486ec36961.zip created on Mon Nov 02 09:17:16 MST 2020
+weather.csv (1105813 bytes)
+UMBS_Weather_Cleaning.Rmd (15796 bytes)
+src.zip (316056 bytes)
+edi.549.4.xml (36216 bytes)
+edi.549.4.txt (21876 bytes)
+edi.549.4.report.xml (52948 bytes)

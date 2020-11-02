@@ -78,7 +78,7 @@ N <- "45.561608"
 S <- "45.558932"
 W <- "-84.679608"
 
-Pid <- "edi.549.3"
+Pid <- "edi.549.4"
 Sid <- "edi.65.1"
 
 EMLassemblyline::make_eml(
@@ -96,6 +96,6 @@ EMLassemblyline::make_eml(
   other.entity = c("UMBS_Weather_Cleaning.Rmd", "src.zip"),
   other.entity.name = c("R script for data formatting and cleaning", "Source data for R script"),
   other.entity.description = c("R script for data formatting and cleaning", "Source data for R script"),
-  user.id = "apawlik",
+  user.id = "umbiologicalstat",
   user.domain = "EDI", 
   package.id = Pid)
